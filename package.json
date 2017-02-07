@@ -1,0 +1,35 @@
+{
+  "name": "comp313_webfeed",
+  "version": "1.0.0",
+  "description": "Centennial College - COMP313 - Winter 2017",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ugurkodak/COMP313_Team_4.git"
+  },
+  "keywords": [
+    "comp313",
+    "centennial",
+    "college",
+    "web",
+    "feed",
+    "news",
+    "twitter",
+    "youtube",
+    "videos",
+    "articles",
+    "media"
+  ],
+  "author": "Team 4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ugurkodak/COMP313_Team_4/issues"
+  },
+  "homepage": "https://github.com/ugurkodak/COMP313_Team_4#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
