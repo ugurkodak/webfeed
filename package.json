@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/ugurkodak/COMP313_Team_4#readme",
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "mongoose": "^4.8.4"
   }
 }
