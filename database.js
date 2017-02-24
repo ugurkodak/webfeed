@@ -8,23 +8,55 @@ mongoose.connect(URI, function(error)
 		console.log("Connected to webfeed database");
 	    }
     });
+//let connection = mongoose.connection;
 
-//ANIMAL
-let animalSchema = mongoose.Schema(
+//POST (Videos, Tweets, etc.)
+let postSchema = mongoose.Schema(
     {
-	type: "string",
-	age: "string"	
+	date: {type: Date, default: Date.now},
+	apiObject: {}
     });
-let animalModel = mongoose.model("animal", animalSchema);
-let animal =
+let postModel = mongoose.model("post", postSchema);  
+let post =
     {
-	document: animalModel
+	add: function(apiObject)
+	{
+	    let document = new postModel(
+		{
+		    apiObject: apiObject 
+		});
+	    document.save(function(error)
+		{
+		    if(error)
+			{
+			    console.log(error);
+			}
+		    else
+			{
+			    console.log("Post successfully added.");
+			}
+		});
+	},
+	getAll: function() // --- To be removed ---
+	{
+	    postModel.find(function(error, posts)
+		{
+		    if(error)
+			{
+			    console.log(error);
+			}
+		    else
+			{
+			    return posts;
+			}
+		});
+	}
     };
 
 //Store models in database object for exporting
 let database =
     {
-	animal: animal
+	post: post,
     };
 
 module.exports = database;

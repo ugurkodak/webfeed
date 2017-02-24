@@ -1,31 +1,15 @@
-/* let contentSchema = mongoose.Schema(
- *     {
- * 	apiReturn:
- *     });*/
-
 let database = require("./database");
 
-//Create an animal in database
-let testAnimal = new database.animal.document(
+//Add a new post -- To be removed --
+let newYouTubeVideo =
     {
-    	type: "Dog",
-    	age: "12"
-    });
-testAnimal.save(function(error)
-    {
-    	if(!error)
-    	    {
- 		console.log("testAnimal is added to database.");
-    	    };
-    });
+	title: "Meaning of Life"
+    };
+//database.post.add(newYouTubeVideo);
 
-//Print all animal documents
-/* let query = animal.find({});
- * query.exec(function(error, result)
- *     {
- * 	console.log(result);
- *     });
- * */
+let allPosts = database.post.getAll(); // --- To be removed ---
+console.log(allPosts);
+
 //Server
 let express = require("express");
 let server = express();
