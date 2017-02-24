@@ -19,7 +19,7 @@ let postSchema = mongoose.Schema(
 let postModel = mongoose.model("post", postSchema);  
 let post =
     {
-	add: function(apiObject)
+	create: function(apiObject)
 	{
 	    let document = new postModel(
 		{
@@ -33,13 +33,14 @@ let post =
 			}
 		    else
 			{
-			    console.log("Post successfully added.");
+			    console.log("Post with id " + document._id + " created.");
 			}
 		});
 	},
-	getAll: function() // --- To be removed ---
+	//TODO: Implement passing id or date to filter.
+	read: function(result, id = null, date = null)
 	{
-	    postModel.find(function(error, posts)
+	    postModel.find(function(error, ret)
 		{
 		    if(error)
 			{
@@ -47,7 +48,35 @@ let post =
 			}
 		    else
 			{
-			    return posts;
+			    for (let i = 0; i < ret.length; i++)
+				{
+				    console.log("Post with id " + ret[i]._id + " read.");
+				}
+			    result(ret);
+			}
+		});
+	},
+	delete: function(id)
+	{
+	    postModel.findByID(id, function(error, found)
+		{
+		    if(error)
+			{
+			    console.log(error);
+			}
+		    else
+			{
+			    postModel.remove({_id: id}, function(error)
+				{
+				    if(error)
+					{
+					    console.log(error);
+					}
+				    else
+					{
+					    console.log("Post with id " + id + " removed.");
+					}
+				});
 			}
 		});
 	}

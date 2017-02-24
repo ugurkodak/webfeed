@@ -1,14 +1,19 @@
 let database = require("./database");
 
-//Add a new post -- To be removed --
+//--- To be removed ---
+
 let newYouTubeVideo =
     {
 	title: "Meaning of Life"
     };
 //database.post.add(newYouTubeVideo);
 
-let allPosts = database.post.getAll(); // --- To be removed ---
-console.log(allPosts);
+database.post.read(function(result)
+    {
+	console.log(result);
+    });
+
+//--- To be removed ---
 
 //Server
 let express = require("express");
