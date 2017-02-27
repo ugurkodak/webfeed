@@ -1,19 +1,25 @@
 let database = require("./database");
 
-//--- To be removed ---
-
+//(CRUD TEST) For this test we need to nest our CRUD calls to ensure they are called sequentially and to work with the same object.
 let newYouTubeVideo =
     {
 	title: "Meaning of Life"
     };
-//database.post.add(newYouTubeVideo);
-
-database.post.read(function(result)
+database.post.create(newYouTubeVideo, function(resultCreate)
     {
-	console.log(result);
+	console.log("Post created. ID: " + resultCreate._id);
+	database.post.read(function(resultRead)
+	    {
+		for(let i = 0; i < resultRead.length; i++)
+		    {
+			console.log("Post read. ID: " + resultRead[i]._id);	
+		    }
+		database.post.delete(resultCreate._id, function(resultDelete)
+		    {
+			console.log("Post deleted. ID: " + resultDelete._id);
+		    });
+	    });
     });
-
-//--- To be removed ---
 
 //Server
 let express = require("express");

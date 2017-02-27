@@ -3,9 +3,9 @@ let URI = "mongodb://webfeed_admin:12345@ds161059.mlab.com:61059/webfeed"
 mongoose.Promise = global.Promise; //Remove Promise library depreciation warning (Temporary)
 mongoose.connect(URI, function(error)
     {
-	if(error)
+	if(!error)
 	    {
-		console.log("Connected to webfeed database");
+		console.log("Connected to webfeed database.");
 	    }
     });
 //let connection = mongoose.connection;
@@ -13,19 +13,20 @@ mongoose.connect(URI, function(error)
 //POST (Videos, Tweets, etc.)
 let postSchema = mongoose.Schema(
     {
-	date: {type: Date, default: Date.now},
-	apiObject: {}
+	apiObject: {},
+	date: {type: Date, default: Date.now}, //Date added to webfeed
+	removed: {type: Boolean, default: false} //Is post removed?
     });
 let postModel = mongoose.model("post", postSchema);  
 let post =
     {
-	create: function(apiObject)
+	create: function(apiObject, result = {})
 	{
 	    let document = new postModel(
 		{
 		    apiObject: apiObject 
 		});
-	    document.save(function(error)
+	    document.save(function(error, ret)
 		{
 		    if(error)
 			{
@@ -33,12 +34,12 @@ let post =
 			}
 		    else
 			{
-			    console.log("Post with id " + document._id + " created.");
+			    result(ret);
 			}
 		});
 	},
 	//TODO: Implement passing id or date to filter.
-	read: function(result, id = null, date = null)
+	read: function(result)
 	{
 	    postModel.find(function(error, ret)
 		{
@@ -48,17 +49,13 @@ let post =
 			}
 		    else
 			{
-			    for (let i = 0; i < ret.length; i++)
-				{
-				    console.log("Post with id " + ret[i]._id + " read.");
-				}
 			    result(ret);
 			}
 		});
 	},
-	delete: function(id)
+	delete: function(id, result)
 	{
-	    postModel.findByID(id, function(error, found)
+	    postModel.findById(id, function(error, ret)
 		{
 		    if(error)
 			{
@@ -74,7 +71,7 @@ let post =
 					}
 				    else
 					{
-					    console.log("Post with id " + id + " removed.");
+					    result(ret);
 					}
 				});
 			}
