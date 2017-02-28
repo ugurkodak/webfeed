@@ -40,5 +40,4 @@ let database =
 	post: post,
 	user: user
     };
-
 module.exports = database;
