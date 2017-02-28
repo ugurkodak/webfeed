@@ -1,7 +1,8 @@
-let database = require("./database");
 let express = require("express");
 let server = express();
 let port = process.env.PORT || 5000;
+
+let database = require("./database");
 
 server.get("/", function(req, res)
     {
