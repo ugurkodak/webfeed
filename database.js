@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 let URI = "mongodb://webfeed_admin:12345@ds161059.mlab.com:61059/webfeed"
-mongoose.Promise = global.Promise; //Remove Promise library depreciation warning (Temporary)
+//mongoose.Promise = global.Promise; //Remove Promise library depreciation warning (Temporary)
 mongoose.connect(URI, function(error)
     {
 	if(!error)
@@ -8,81 +8,37 @@ mongoose.connect(URI, function(error)
 		console.log("Connected to webfeed database.");
 	    }
     });
-//let connection = mongoose.connection;
 
-//POST (Videos, Tweets, etc.)
+//POSTS (Videos, Tweets, etc.)
 let postSchema = mongoose.Schema(
     {
 	apiObject: {},
-	date: {type: Date, default: Date.now}, //Date added to webfeed
+	date: {type: Date, default: Date.now}, //Date added to webfeed 
 	removed: {type: Boolean, default: false} //Is post removed?
     });
-let postModel = mongoose.model("post", postSchema);  
-let post =
+let post = mongoose.model("post", postSchema);
+
+//USERS
+let userSchema = mongoose.Schema(
     {
-	create: function(apiObject, result = {})
-	{
-	    let document = new postModel(
-		{
-		    apiObject: apiObject 
-		});
-	    document.save(function(error, ret)
-		{
-		    if(error)
-			{
-			    console.log(error);
-			}
-		    else
-			{
-			    result(ret);
-			}
-		});
-	},
-	//TODO: Implement passing id or date to filter.
-	read: function(result)
-	{
-	    postModel.find(function(error, ret)
-		{
-		    if(error)
-			{
-			    console.log(error);
-			}
-		    else
-			{
-			    result(ret);
-			}
-		});
-	},
-	delete: function(id, result)
-	{
-	    postModel.findById(id, function(error, ret)
-		{
-		    if(error)
-			{
-			    console.log(error);
-			}
-		    else
-			{
-			    postModel.remove({_id: id}, function(error)
-				{
-				    if(error)
-					{
-					    console.log(error);
-					}
-				    else
-					{
-					    result(ret);
-					}
-				});
-			}
-		});
-	}
-    };
+	email: String,
+	password: String,
+	date: {type: Date, default: Date.now},
+	filters:
+		[{
+		    timeRange: Number,
+		    region: String,
+		    youtube: {type: Boolean, default: true},
+		    twitter: {type: Boolean, default: true}
+		}]
+    });
+let user = mongoose.model("user", userSchema);
 
 //Store models in database object for exporting
 let database =
     {
 	post: post,
+	user: user
     };
 
 module.exports = database;
