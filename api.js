@@ -10,7 +10,7 @@ var twitterClient = new twitter(
 
 let twitterQueries =
 {
-    getTrending: function(result)
+    getTrends: function(result)
     {
 	twitterClient.get("trends/place", {id: "1"}, function(error, trends, response)
 	    {
@@ -18,13 +18,29 @@ let twitterQueries =
 		    {
 			console.log(error);
 		    }
+
 		else
 		    {
 			
-			result(trends);
+			result(trends[0]);
 		    }
 	    });
-    }
+    },
+    getPopularTweet: function(rank, result)
+    {
+	this.getTrends(function(trends)
+	    {
+		twitterClient.get("search/tweets",
+				  {
+				      q: trends.trends[rank].name,
+				      result_type: "popular",
+				      count: "1"
+				  }, function(error, tweets, response)
+		    {
+			result(tweets.statuses[0]);
+		    });
+	    });
+    } 
 };
 
 let api =
