@@ -5,7 +5,7 @@
     </head>
     <body>
 	<% for(let i = 0; i < posts.length; i++) {%>
-	    <p><%=posts[i]%></p>
+	    <p><%=posts[i].apiObject.text%></p>
 	<% } %>
     </body>
 </html>

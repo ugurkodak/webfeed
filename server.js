@@ -9,24 +9,61 @@ server.use(express.static(__dirname + "/static"));
 server.set("views", __dirname + "/views");
 server.set("view engine", "ejs");
 
-//Testing twitter
-//Get one popular tweet from 5 trending.
-let posts = [];
-for (let i = 0; i < 5; i++)
+
+/* Save three unique popular tweets from trending topics to the
+ * posts collection in database*/
+for (let i = 0; i < 3; i++)
     {
 	api.twitter.getPopularTweet(i, function(tweet)
 	    {
-		posts[i] = tweet.text
+		database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
+		    {
+			if (error)
+			    {
+				console.log(error);
+			    }
+			else
+			    {
+				if(post[0])
+				    {
+					console.log("Tweet already exist. ID: " + post[0].apiObject.id);
+				    }
+				else
+				    {
+					database.post.create({apiObject: tweet}, function(error, post)
+					    {
+						if (error)
+						    {
+							console.log(error);
+						    }
+						else
+						    {
+							console.log("New tweet added. ID: " + post.apiObject.id);
+						    }
+					    });
+				    }
+			    }
+		    });
 	    });	
     }
 
 server.get("/", function(req, res)
     {
-	res.render("home",
-		   {
-		       title: "WebFeed",
-		       posts: posts
-		   });
+	database.post.find(function(error, posts)
+	    {
+		if(error)
+		    {
+			console.log(error);
+		    }
+		else
+		    {
+			res.render("home",
+				   {
+				       title: "WebFeed",
+				       posts: posts
+				   });
+		    }
+	    });
     });
 
 server.listen(port, function()
