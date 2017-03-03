@@ -33,11 +33,22 @@ let twitterQueries =
 		twitterClient.get("search/tweets",
 				  {
 				      q: trends.trends[rank].name,
+				      lang: "en",
 				      result_type: "popular",
-				      count: "1"
+				      count: "10"
 				  }, function(error, tweets, response)
 		    {
-			result(tweets.statuses[0]);
+			let tweet;
+			for(let i = 0; i < tweets.statuses.length; i++)
+			    {
+				if(tweets.statuses[i])
+				    {
+					console.log(i + "th tweet from " + trends.trends[rank].name);
+					tweet = tweets.statuses[i];
+					break;
+				    }
+			    }
+			result(tweet);
 		    });
 	    });
     } 
