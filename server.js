@@ -2,56 +2,80 @@ let express = require("express");
 let server = express();
 let port = process.env.PORT || 5000;
 
+let bodyParser = require('body-parser');
+
+let session = require('express-session');
+let passport = require('passport');
+let passportlocal = require('passport-local');
+let localStrategy = passportlocal.Strategy;
+
+let favicon = require("serve-favicon");
+
 let database = require(__dirname + "/database");
 let api = require(__dirname + "/api");
 
 server.set("views", __dirname + "/views");
 server.set("view engine", "ejs");
-server.use(express.static(__dirname + "/static"));
+server.use(express.static(__dirname + "/public"));
+server.use(favicon(__dirname + "/public/favicon.ico"));
 
-/* Save three unique popular tweets from trending topics to the
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
+
+server.use(session({
+    secret: "SomeSecret",
+    saveUninitialized: true,
+    resave: true
+}));
+server.use(passport.initialize());
+server.use(passport.session());
+passport.use(database.user.createStrategy());
+passport.serializeUser(database.user.serializeUser());
+passport.deserializeUser(database.user.deserializeUser());
+
+/* Save up to 10 unique popular tweets from trending topics to the
  * posts collection in database*/
 for (let i = 0; i < 10; i++)
     {
-	api.twitter.getPopularTweet(i, function(tweet)
- 	    {
-		if(tweet)
-		    {
-			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
- 			    {
- 				if (error)
- 				    {
- 					console.log(error);
- 				    }
- 				else
- 				    {
- 					if(post[0])
- 					    {
- 						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
- 					    }
- 					else
- 					    {
- 						database.post.create({apiObject: tweet}, function(error, post)
- 						    {
- 							if (error)
- 							    {
- 								console.log(error);
- 							    }
- 							else
- 							    {
- 								console.log("New tweet added. ID: " + post.apiObject.id);
- 							    }
- 						    });
- 					    }
- 				    }
- 			    });
-		    }
- 		
- 	    });	
+ 	api.twitter.getPopularTweet(i, function(tweet)
+  	    {
+ 		if(tweet)
+ 		    {
+ 			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
+  			    {
+  				if (error)
+  				    {
+  					console.log(error);
+  				    }
+  				else
+  				    {
+  					if(post[0])
+  					    {
+  						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
+  					    }
+  					else
+  					    {
+  						database.post.create({apiObject: tweet}, function(error, post)
+  						    {
+  							if (error)
+  							    {
+  								console.log(error);
+  							    }
+  							else
+  							    {
+  								console.log("New tweet added. ID: " + post.apiObject.id);
+  							    }
+  						    });
+  					    }
+  				    }
+  			    });
+ 		    }
+  		
+  	    });	
     }
 
-    //Routes
-    server.get("/", function(req, res)
+//Routes
+server.get("/", function(req, res)
     {
 	database.post.find(function(error, posts)
 	    {
@@ -64,23 +88,49 @@ for (let i = 0; i < 10; i++)
 			res.render("home",
 				   {
 				       title: "WebFeed - Home",
-				       posts: posts
+				       posts: posts,
+				       username: req.user ? req.user.username: ""
 				   });
 		    }
 	    });
     });
 
-server.get("/register", function(req, res)
+server.get("/signup", function(req, res)
     {
-	res.render("register",
+	res.render("signup",
 		  {
-		      title: "WebFeed - Register"
+		      title: "WebFeed - Sign Up"
 		  });
     });
 
-server.post("/register", function(req, res)
+server.post("/signup", function(req, res)
     {
-	res.redirect("/");
+	database.user.register(
+		new database.user(
+		    {
+			email: req.body.email,
+			username: req.body.username,
+			name: req.body.name,
+		    }), req.body.password,
+	    function(error)
+	    {
+		if(error)
+		    {
+			console.log(error);
+			return res.render("signup",
+					  {
+					      title: "WebFeed - Sign Up"
+					  });	
+		    }
+		else
+		    {
+			return passport.authenticate("local")(req, res, function()
+			    {
+				res.redirect("/");
+			    });
+		    }
+	    }
+	);
     });
 
 server.get("/login", function(req, res)
@@ -91,10 +141,11 @@ server.get("/login", function(req, res)
 		   });
     });
 
-server.post("/login", function(req, res)
-    {
-	res.redirect("/");
-    });
+server.post("/login", passport.authenticate("local",
+					    {
+						successRedirect: "/",
+						failureRedirect: "/login"
+					    }));
 
 server.get("/account", function(req, res)
     {
@@ -107,6 +158,12 @@ server.get("/account", function(req, res)
 server.post("/account", function(req, res)
     {
 	res.redirect("/account");
+    });
+
+server.get("/logout", function(req, res)
+    {
+	req.logout();
+	res.redirect('/');
     });
 
 server.listen(port, function()

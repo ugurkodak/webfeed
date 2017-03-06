@@ -1,0 +1,19 @@
+﻿<nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
+    <div class="navbar-header">
+	<a class="navbar-brand" href="/">WebFeed</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+	<ul class="nav navbar-nav">
+	    <% if(typeof username == "string" && username) { %>
+		<li class="navbar-text"><i class="fa fa-user"></i>Welcome, <%= username %></li>
+		<li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+            <% } else { %>
+		<li><a href="/login"><i class="fa fa-sign-in"></i>Login</a></li>
+            <% } %>
+	</ul>
+    </div>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>

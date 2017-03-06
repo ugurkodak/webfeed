@@ -8,11 +8,9 @@ body{
     padding-top:7em;
     text-align:center;
 }
-.footer{
+#footer *{
     background-color:aquamarine;
-   position:fixed;
-   bottom:0;
-   width:100%;
+    color: black;
 }
 
 
