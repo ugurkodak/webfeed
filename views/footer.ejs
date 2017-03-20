@@ -5,11 +5,14 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 	<ul class="nav navbar-nav">
 	    <% if(typeof username == "string" && username) { %>
-		<li class="navbar-text"><i class="fa fa-user"></i>Welcome, <%= username %></li>
-		<li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+		<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+		<li class="navbar-text"></i>Welcome, <%= username %></li>
             <% } else { %>
-		<li><a href="/login"><i class="fa fa-sign-in"></i>Login</a></li>
+		<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <% } %>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	    <li class="navbar-text"><span id="refresh-button" class="glyphicon glyphicon-refresh"></span></li>
 	</ul>
     </div>
 </nav>

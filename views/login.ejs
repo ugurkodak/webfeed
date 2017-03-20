@@ -1,37 +1,19 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="/css/styles.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-	<form method="post" >
-	    <h1>Login to Your Account</h1>
-	    <br/>
-	    <br/>
-	    <br/>
-	    <div class="container">
-		<div class="input">
-		    <span class="glyphicon glyphicon-user"></span> 
-		    <input placeholder="Username" name="username" type="text" autofocus>
-		</div>
-	    </div>
-	    <br/><br/>
-	    <div class="container>
-			<div class="input">
-		<span class="glyphicon glyphicon-lock"></span>
-		<input placeholder="Password" name="password" type="password">
-	    </div>
-	    </div>
-	    <br/><br/>
-	    <div class="container">
-		<input type="submit" value="Login" name="login">
-		<a href="signup">Sign Up</a>
-	    </div>
-	    
-	    </div>
-	</form>
-	<% include footer.ejs %>
+﻿<% include header.ejs %>
+<div class="input">
+    <h1>Login</h1>
+    <br/><br/><br/>
+    <form method="post">
+	<span class="glyphicon glyphicon-user"></span> 
+	<input placeholder="Username" name="username" type="text" autofocus>
+	<br/><br/> 
+	<span class="glyphicon glyphicon-lock"></span>
+	<input placeholder="Password" name="password" type="password">
+	<br/><br/>
+	<input class="btn btn-default" type="submit" value="Login" name="login">
+	<a href="signup">Sign Up</a>
+    </form>
+</div>
+<% include footer.ejs %>
 
 
 

@@ -1,32 +1,27 @@
-﻿.input{
+﻿.main-content {
     text-align:center;
 }
-.input span{
+
+.input {
     text-align:center;
 }
-body{
-    padding-top:7em;
+
+.input span {
     text-align:center;
 }
-#footer *{
+
+#footer * {
     background-color:aquamarine;
     color: black;
 }
 
-
-.row{
-    position:relative;
-}
-.row .twitter{
-    margin-top:5px;
-   
-}
-.row .youtube{
-     margin-top:50px;
-    
+#footer {
+    border-top: 1px solid black;
 }
 
-.row .reddit{
-     margin-top:50px;
-    
+#refresh-button {
+    font-size: 20px;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
 }
