@@ -35,48 +35,48 @@ passport.deserializeUser(database.user.deserializeUser());
 
 /* Save up to 10 unique popular tweets from trending topics to the
  * posts collection in database*/
-/* for (let i = 0; i < 10; i++)
- *     {
- *  	api.twitter.getPopularTweet(i, function(tweet)
- *   	    {
- *  		if(tweet)
- *  		    {
- *  			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
- *   			    {
- *   				if (error)
- *   				    {
- *   					console.log(error);
- *   				    }
- *   				else
- *   				    {
- *   					if(post[0])
- *   					    {
- *   						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
- *   					    }
- *   					else
- *   					    {
- *   						database.post.create({apiObject: tweet}, function(error, post)
- *   						    {
- *   							if (error)
- *   							    {
- *   								console.log(error);
- *   							    }
- *   							else
- *   							    {
- *   								console.log("New tweet added. ID: " + post.apiObject.id);
- *   							    }
- *   						    });
- *   					    }
- *   				    }
- *   			    });
- *  		    }
- *   		
- *   	    });	
- *     }
- * */
+for (let i = 0; i < 10; i++)
+    {
+   	api.twitter.getPopularTweet(i, function(tweet)
+    	    {
+   		if(tweet)
+   		    {
+   			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
+    			    {
+    				if (error)
+    				    {
+    					console.log(error);
+    				    }
+    				else
+    				    {
+    					if(post[0])
+    					    {
+    						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
+    					    }
+    					else
+    					    {
+    						database.post.create({apiObject: tweet, source: "twitter"}, function(error, post)
+    						    {
+    							if (error)
+    							    {
+    								console.log(error);
+    							    }
+    							else
+    							    {
+    								console.log("New tweet added. ID: " + post.apiObject.id);
+    							    }
+    						    });
+    					    }
+    				    }
+    			    });
+   		    }
+    		
+    	    });	
+    }
 
-//Get 10 trending videos from youtube
-api.youtube.getPopular("2", function(result)
+
+//Save 10 trending videos from youtube
+api.youtube.getPopular("5", function(result)
     {
 	if(result.items.length > 0)
 	    {
@@ -96,7 +96,7 @@ api.youtube.getPopular("2", function(result)
 					    }
 					else
 					    {
-						database.post.create({apiObject: result.items[i]}, function(error, post)
+						database.post.create({apiObject: result.items[i], source: "youtube"}, function(error, post)
 						    {
 							if (error)
 							    {
@@ -113,6 +113,7 @@ api.youtube.getPopular("2", function(result)
 		    }
 	    }
     });
+
 //Routes
 server.get("/", function(req, res)
     {

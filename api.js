@@ -62,7 +62,7 @@ let youtubeQueries =
     {
 	getPopular: function(count, result)
 	{
-	    youtubeClient.request("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&chart=mostPopular&maxResults="+count+"&key=AIzaSyAZjNjIkYF3s70dAar2h_Z9FScBYRKyDZk", function(error, videos)
+	    youtubeClient.request("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults="+count+"&key=AIzaSyAZjNjIkYF3s70dAar2h_Z9FScBYRKyDZk", function(error, videos)
 		{
 		    if (error)
 			{

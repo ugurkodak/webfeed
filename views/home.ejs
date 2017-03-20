@@ -1,7 +1,12 @@
 ﻿<%include header.ejs%>
 <div class="main-content">
-    <% for(let i = 0; i < posts.length; i++) {%>
-	<p><%=posts[i].apiObject.text%></p>
+    <% for(let i = 0; i < posts.length; i++) { %>
+	<% if(posts[i].source == "twitter") { %>
+	    <p>FROM TWITTER: <%=posts[i].apiObject.text%></p>
+	<% } %>
+	<% if(posts[i].source == "youtube") { %>
+	    <p>FROM YOUTUBE: <%=posts[i].apiObject.snippet.title%></p>
+	<% } %>
     <% } %>
 </div>
 <%include footer.ejs%>

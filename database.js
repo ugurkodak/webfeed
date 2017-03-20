@@ -15,6 +15,7 @@ mongoose.connect(URI, function(error)
 let postSchema = mongoose.Schema(
     {
 	apiObject: {},
+	source: String,
 	date: {type: Date, default: Date.now}, //Date added to webfeed 
 	removed: {type: Boolean, default: false} //Is post removed?
     });
