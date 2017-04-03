@@ -38,81 +38,81 @@ passport.deserializeUser(database.user.deserializeUser());
  * posts collection in database*/
 for (let i = 0; i < 10; i++)
     {
-    	api.twitter.getPopularTweet(i, function(tweet)
-     	    {
-    		if(tweet)
-    		    {
-    			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
-     			    {
-     				if (error)
-     				    {
-     					console.log(error);
-     				    }
-     				else
-     				    {
-     					if(post[0])
-     					    {
-     						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
-     					    }
-     					else
-     					    {
-     						database.post.create({apiObject: tweet, source: "twitter"}, function(error, post)
-     						    {
-     							if (error)
-     							    {
-     								console.log(error);
-     							    }
-     							else
-     							    {
-     								console.log("New tweet added. ID: " + post.apiObject.id);
-     							    }
-     						    });
-     					    }
-     				    }
-     			    });
-    		    }
-     		
-     	    });	
+     	api.twitter.getPopularTweet(i, function(tweet)
+      	    {
+     		if(tweet)
+     		    {
+     			database.post.find({"apiObject.id": tweet.id}).exec(function(error, post)
+      			    {
+      				if (error)
+      				    {
+      					console.log(error);
+      				    }
+      				else
+      				    {
+      					if(post[0])
+      					    {
+      						console.log("Tweet already exist. ID: " + post[0].apiObject.id);
+      					    }
+      					else
+      					    {
+      						database.post.create({apiObject: tweet, source: "twitter"}, function(error, post)
+      						    {
+      							if (error)
+      							    {
+      								console.log(error);
+      							    }
+      							else
+      							    {
+      								console.log("New tweet added. ID: " + post.apiObject.id);
+      							    }
+      						    });
+      					    }
+      				    }
+      			    });
+     		    }
+      		
+      	    });	
     }
 
 
 //Save 10 trending videos from youtube
 api.youtube.getPopular("5", function(result)
     {
- 	if(result.items.length > 0)
- 	    {
- 		for (let i = 0; i < result.items.length; i++)
- 		    {
- 			database.post.find({"apiObject.id": result.items[i].id}).exec(function(error, post)
- 			    {
- 				if (error)
- 				    {
- 					console.log(error);
- 				    }
- 				else
- 				    {
- 					if(post[0])
- 					    {
- 						console.log("YouTube video already exist. ID: " + post[0].apiObject.id);
- 					    }
- 					else
- 					    {
- 						database.post.create({apiObject: result.items[i], source: "youtube"}, function(error, post)
- 						    {
- 							if (error)
- 							    {
- 								console.log(error);
- 							    }
- 							else
- 							    {
- 						       		console.log("New YouTube video added. ID: " + post.apiObject.id);
- 							    }
- 						    });
- 					    }
- 				    }
- 			    });
- 		    }
- 	    }
+  	if(result.items.length > 0)
+  	    {
+  		for (let i = 0; i < result.items.length; i++)
+  		    {
+  			database.post.find({"apiObject.id": result.items[i].id}).exec(function(error, post)
+  			    {
+  				if (error)
+  				    {
+  					console.log(error);
+  				    }
+  				else
+  				    {
+  					if(post[0])
+  					    {
+  						console.log("YouTube video already exist. ID: " + post[0].apiObject.id);
+  					    }
+  					else
+  					    {
+  						database.post.create({apiObject: result.items[i], source: "youtube"}, function(error, post)
+  						    {
+  							if (error)
+  							    {
+  								console.log(error);
+  							    }
+  							else
+  							    {
+  						       		console.log("New YouTube video added. ID: " + post.apiObject.id);
+  							    }
+  						    });
+  					    }
+  				    }
+  			    });
+  		    }
+  	    }
     });
 
 //Routes

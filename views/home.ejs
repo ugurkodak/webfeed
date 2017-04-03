@@ -2,10 +2,14 @@
 <div class="main-content">
     <% for(let i = 0; i < posts.length; i++) { %>
 	<% if(posts[i].source == "twitter") { %>
-	    <p>FROM TWITTER: <%=posts[i].apiObject.text%></p>
+	    <% var tweetURL = "https://twitter.com/" + posts[i].apiObject.user.screen_name + "/" + "status" + "/" + posts[i].apiObject.id_str; %>
+	    <blockquote class="twitter-tweet" data-lang="en">
+		<a href=<%= tweetURL %>></a>
+	    </blockquote>
 	<% } %>
 	<% if(posts[i].source == "youtube") { %>
-	    <p>FROM YOUTUBE: <%=posts[i].apiObject.snippet.title%></p>
+	    <% var youtubeURL = "https://www.youtube.com/embed/" + posts[i].apiObject.id %>
+	    <iframe class="youtube-video" src=<%= youtubeURL %> frameborder="0" allowfullscreen></iframe>
 	<% } %>
     <% } %>
 </div>

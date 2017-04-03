@@ -1,5 +1,17 @@
 ﻿.main-content {
-    text-align:center;
+    text-align: center;
+    margin: auto;
+}
+
+.twitter-tweet {
+    margin: auto;
+}
+
+.youtube-video {
+    display: block;
+    margin: auto;
+    width: 384px;
+    height: 216px;
 }
 
 .input {
