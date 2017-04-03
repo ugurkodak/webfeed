@@ -11,9 +11,18 @@
 		<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <% } %>
 	</ul>
-	<ul class="nav navbar-nav navbar-right">
-	    <li class="navbar-text"><span id="refresh-button" class="glyphicon glyphicon-refresh"></span></li>
-	</ul>
+	<form class="navbar-form navbar-right" method="post">
+	    <input id="checkbox-twitter" class="checkbox-source" type="checkbox" value=""><label for="checkbox-twitter"></label>
+	    <input id="checkbox-youtube" class="checkbox-source" type="checkbox" value=""><label for="checkbox-youtube"></label>
+	    <input id="checkbox-reddit" class="checkbox-source" type="checkbox" value=""><label for="checkbox-reddit"></label>
+	    <input id="checkbox-nytimes" class="checkbox-source" type="checkbox" value=""><label for="checkbox-nytimes"></label>
+	    <select id="select-time" class="form-control" id="sel1">
+		<option>Daily</option>
+		<option>Weeky</option>
+		<option>Monthly</option>
+	    </select>
+	    <input id="btn-refresh" class="btn btn-default" type="submit" value=""/>
+	</form>
     </div>
 </nav>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

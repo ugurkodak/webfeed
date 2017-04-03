@@ -17,11 +17,51 @@
 
 #footer {
     border-top: 1px solid black;
+    opacity: 0.8;
 }
 
-#refresh-button {
-    font-size: 20px;
-    padding: 0px;
-    margin: 0px;
+#btn-refresh {
+    background: url(../images/icon_refresh_sm.png);  
+    border-color: black;
+    width: 32px;
+    height: 32px;
     margin-right: 10px;
 }
+
+#select-time {
+    border-color: black;
+    margin-left: 40px;
+}
+
+.checkbox-source {
+    display:none;
+}
+
+.checkbox-source + label {
+    width: 32px;
+    height: 32px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    margin: 0 20px 0 0px;
+}
+
+.checkbox-source:checked + label {
+    opacity: 0.5;
+}
+
+#checkbox-twitter + label {
+    background: url(../images/icon_twitter_sm.png) no-repeat;
+}
+
+#checkbox-youtube + label {
+    background: url(../images/icon_youtube_sm.png) no-repeat;
+}
+
+#checkbox-reddit + label {
+    background: url(../images/icon_twitter_sm.png) no-repeat;
+}
+
+#checkbox-nytimes + label {
+    background: url(../images/icon_twitter_sm.png) no-repeat;
+}
+
