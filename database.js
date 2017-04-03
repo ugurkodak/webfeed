@@ -21,6 +21,16 @@ let postSchema = mongoose.Schema(
     });
 let post = mongoose.model("post", postSchema);
 
+let filterSchema = mongoose.Schema(
+    {
+	timeRange: {type: Number, default: 1},
+	twitter: {type: Boolean, default: true},
+	youtube: {type: Boolean, default: true},
+	reddit: {type: Boolean, default: true},
+	nytimes: {type: Boolean, default: true}
+    });
+let filter = mongoose.model("filter", filterSchema);
+
 //USERS
 let userSchema = mongoose.Schema(
     {
@@ -58,6 +68,7 @@ let user = mongoose.model("user", userSchema);
 let database =
     {
 	post: post,
+	filter: filter,
 	user: user
     };
 module.exports = database;

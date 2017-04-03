@@ -12,10 +12,38 @@
             <% } %>
 	</ul>
 	<form class="navbar-form navbar-right" method="post">
-	    <input id="checkbox-twitter" class="checkbox-source" type="checkbox" value=""><label for="checkbox-twitter"></label>
-	    <input id="checkbox-youtube" class="checkbox-source" type="checkbox" value=""><label for="checkbox-youtube"></label>
-	    <input id="checkbox-reddit" class="checkbox-source" type="checkbox" value=""><label for="checkbox-reddit"></label>
-	    <input id="checkbox-nytimes" class="checkbox-source" type="checkbox" value=""><label for="checkbox-nytimes"></label>
+	    <% if(filter.twitter == true) { %>
+		<input type="hidden" name="twitter" value="0"/>
+		<input id="checkbox-twitter" class="checkbox-source" type="checkbox" name="twitter" value="1" checked><label for="checkbox-twitter"></label>	
+            <% } else { %>
+		<input type="hidden" name="twitter" value="0"/>
+		<input id="checkbox-twitter" class="checkbox-source" type="checkbox" name="twitter" value="1" unchecked><label for="checkbox-twitter"></label>	
+            <% } %>
+
+	    <% if(filter.youtube == true) { %>
+		<input type="hidden" name="youtube" value="0" />
+		<input id="checkbox-youtube" class="checkbox-source" type="checkbox" name="youtube" value="1" checked><label for="checkbox-youtube"></label>
+	    <% } else { %>
+		<input type="hidden" name="youtube" value="0" />
+		<input id="checkbox-youtube" class="checkbox-source" type="checkbox" name="youtube" value="1" unchecked><label for="checkbox-youtube"></label>
+	    <% } %>
+
+	    <% if(filter.reddit == true) { %>
+		<input type="hidden" name="reddit" value="0" />
+		<input id="checkbox-reddit" class="checkbox-source" type="checkbox" name="reddit" value="1" checked><label for="checkbox-reddit"></label>
+	    <% } else { %>
+		<input type="hidden" name="reddit" value="0" />
+		<input id="checkbox-reddit" class="checkbox-source" type="checkbox" name="reddit" value="1" unchecked><label for="checkbox-reddit"></label>
+	    <% } %>
+
+	    <% if(filter.nytimes == true) { %>
+		<input type="hidden" name="nytimes" value="0" />
+		<input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" checked><label for="checkbox-nytimes"></label>
+	    <% } else { %>
+		<input type="hidden" name="nytimes" value="0" />
+		<input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" unchecked"><label for="checkbox-nytimes"></label>	
+	    <% } %>
+
 	    <select id="select-time" class="form-control" id="sel1">
 		<option>Daily</option>
 		<option>Weeky</option>
