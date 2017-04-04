@@ -27,7 +27,8 @@ let filterSchema = mongoose.Schema(
 	twitter: {type: Boolean, default: true},
 	youtube: {type: Boolean, default: true},
 	reddit: {type: Boolean, default: true},
-	nytimes: {type: Boolean, default: true}
+	nytimes: {type: Boolean, default: true},
+	date: {type: Date, default: Date.now}
     });
 let filter = mongoose.model("filter", filterSchema);
 

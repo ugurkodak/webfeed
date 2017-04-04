@@ -40,10 +40,12 @@
     margin-right: 10px;
 }
 
-#select-time {
+#input-date {
     border-color: black;
-    margin-left: 40px;
 }
+
+::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { background: aquamarine; }
 
 .checkbox-source {
     display:none;

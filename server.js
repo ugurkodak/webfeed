@@ -11,6 +11,8 @@ let localStrategy = passportlocal.Strategy;
 
 let favicon = require("serve-favicon");
 
+let moment = require("moment");
+
 let database = require(__dirname + "/database");
 let api = require(__dirname + "/api");
 
@@ -34,6 +36,8 @@ passport.use(database.user.createStrategy());
 passport.serializeUser(database.user.serializeUser());
 passport.deserializeUser(database.user.deserializeUser());
 
+let dev = false;
+if (!dev){
 /* Save up to 10 unique popular tweets from trending topics to the
  * posts collection in database*/
 for (let i = 0; i < 10; i++)
@@ -114,6 +118,7 @@ api.youtube.getPopular("5", function(result)
   		    }
   	    }
     });
+}
 
 //Routes
 server.get("/", function(req, res)
@@ -124,7 +129,10 @@ server.get("/", function(req, res)
 	if (filter.youtube){sources.push({"source": "youtube"});}
 	if (filter.reddit){sources.push({"source": "reddit"});}
 	if (filter.nytimes){sources.push({"source": "nytimes"});}
-	database.post.find({$or: sources}, function(error, posts)
+	database.post.find({
+	    $or: sources,
+	    date: {$gt: moment.parseZone(filter.date).startOf("day"), $lt: moment.parseZone(filter.date).endOf("day")}
+	}).exec(function(error, posts)
 	    {
 		if(error)
 		    {
@@ -134,6 +142,7 @@ server.get("/", function(req, res)
 		    {
 			res.render("home",
 				   {
+				       moment: moment,
 				       title: "WebFeed - Home",
 				       posts: posts,
 				       filter: filter,
@@ -150,7 +159,8 @@ server.post("/", function(req, res)
 		twitter: req.body.twitter,
 		youtube: req.body.youtube,
 		reddit: req.body.reddit,
-		nytimes: req.body.nytimes
+		nytimes: req.body.nytimes,
+		date: req.body.date
 	    });
 	res.redirect("/");
     });
