@@ -1,4 +1,9 @@
-﻿.main-content {
+﻿body {
+    background-color: #6bb29a;
+    //background-color: aquamarine;
+}
+
+.main-content {
     text-align: center;
     margin: auto;
 }
@@ -10,8 +15,8 @@
 .youtube-video {
     display: block;
     margin: auto;
-    width: 384px;
-    height: 216px;
+    width: 640px;
+    height: 360px;
 }
 
 .input {
@@ -80,3 +85,25 @@
     background: url(../images/icon_twitter_sm.png) no-repeat;
 }
 
+.main-content {
+    column-width: 360px;
+    //column-gap: 15px;
+    margin: auto;
+}
+
+.item {
+    //background: black;
+    //border: 2px solid black;
+    //box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    //margin: 2px;
+    //padding-right: 2px;
+    border: none;
+    display: inline-block;
+    column-break-inside: avoid;
+    max-width: 99%;
+}
+
+.item *
+{
+    max-width: 99%;
+}
