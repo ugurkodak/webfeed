@@ -1,22 +1,10 @@
-//TWITTER
-let twitter = require("twitter");
-let twitterClient = new twitter(
-    {
-	consumer_key: "a6K1B1gT2ImeXKHJOw0voPGox",
-	consumer_secret: "psA4hodgf7h9Y0OrpssO8t1c1pVm0p4lFeXuj5mNuPpxM49cvF",
-	access_token_key: "122784300-wSnL7h757J9zig7wgOZeJya0I0G1yhDjub3T4N8v",
-	access_token_secret: "xNeNNgTXEcLrHKJHVriX4nu2NttImtwwbDFBhhNC3P1Gj"	
-    });
-
-let youtube = require("youtube-node");
-let youtubeClient = new youtube();
-youtubeClient.setKey("AIzaSyAZjNjIkYF3s70dAar2h_Z9FScBYRKyDZk");
+let client = require(__dirname + "/client");
 
 let twitterQueries =
     {
 	getTrends: function(result)
 	{
-	    twitterClient.get("trends/place", {id: "1"}, function(error, trends, response)
+	    client.twitterClient.get("trends/place", {id: "1"}, function(error, trends, response)
 		{
 		    if(error)
 			{
@@ -34,7 +22,7 @@ let twitterQueries =
 	{
 	    this.getTrends(function(trends)
 		{
-		    twitterClient.get("search/tweets",
+		    client.twitterClient.get("search/tweets",
 				      {
 					  q: trends.trends[rank].name,
 					  lang: "en",
@@ -62,7 +50,7 @@ let youtubeQueries =
     {
 	getPopular: function(count, result)
 	{
-	    youtubeClient.request("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults="+count+"&key=AIzaSyAZjNjIkYF3s70dAar2h_Z9FScBYRKyDZk", function(error, videos)
+	    client.youtubeClient.request("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults="+count+"&key=AIzaSyAZjNjIkYF3s70dAar2h_Z9FScBYRKyDZk", function(error, videos)
 		{
 		    if (error)
 			{
@@ -76,9 +64,18 @@ let youtubeQueries =
 	}
     };
 
+let redditQueries =
+    {
+ 	getHot: function(limit, result)
+ 	{
+	    result(client.redditClient.getHot({limit: limit}));
+ 	}
+    }
+
 let api =
     {
 	twitter: twitterQueries,
-	youtube: youtubeQueries
+	youtube: youtubeQueries,
+	reddit: redditQueries,
     };
 module.exports = api;
