@@ -97,32 +97,37 @@ if (!dev) {
     });
 
     //Save 5 post from reddit hot page
-    api.reddit.getHot(5, (results) => {
-	results.then((redditPosts) => {
-	    redditPosts.forEach((redditPost) => {
-		database.post.find({"apiObject.id": redditPost.id}).exec((err, post) => {
-		    if (err) {
-      			console.log(err);
-      		    }
-		    else {
-			if(post.length > 0) {
-			    console.log("Reddit post already exist. ID: " + post[0].apiObject.id);
-			}
+    try {
+	api.reddit.getHot(5, (results) => {
+	    results.then((redditPosts) => {
+		redditPosts.forEach((redditPost) => {
+		    database.post.find({"apiObject.id": redditPost.id}).exec((err, post) => {
+			if (err) {
+      			    console.log(err);
+      			}
 			else {
-			    database.post.create({apiObject: redditPost, source: "reddit"}, (err, newPost) => {
-      				if (err) {
-      				    console.log(err);
-      				}
-      				else {
-      				    console.log("New reddit post added. ID: " + newPost.apiObject.id);
-      				}
-      			    });
+			    if(post.length > 0) {
+				console.log("Reddit post already exist. ID: " + post[0].apiObject.id);
+			    }
+			    else {
+				database.post.create({apiObject: redditPost, source: "reddit"}, (err, newPost) => {
+      				    if (err) {
+      					console.log(err);
+      				    }
+      				    else {
+      					console.log("New reddit post added. ID: " + newPost.apiObject.id);
+      				    }
+      				});
+			    }
 			}
-		    }
+		    });
 		});
 	    });
 	});
-    });
+    }
+    catch(err) {
+	console.log("Some error about promises used by snoowrap.");
+    }
 }
 
 
