@@ -12,6 +12,13 @@
 		<% var youtubeURL = "https://www.youtube.com/embed/" + posts[i].apiObject.id %>
 		<iframe class="youtube-video" src=<%= youtubeURL %> frameborder="0" allowfullscreen></iframe>
 	    <% } %>
+	    <% if(posts[i].source == "reddit") { %>
+		<blockquote class="reddit-card">		    
+		    <a href= <%= "https://www.reddit.com" + posts[i].apiObject.permalink + "?ref=share&ref_source=embed" %>
+		       
+		    </a>
+		</blockquote>	
+	    <% } %>
 	</div>
     <% } %>
 </div>

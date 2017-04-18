@@ -1,6 +1,6 @@
 ﻿body {
-    background-color: #6bb29a;
-    //background-color: aquamarine;
+    //background-color: #6bb29a;
+    background-color: white;
     padding-bottom: 70px;
 }
 
@@ -20,6 +20,10 @@
     height: 360px;
 }
 
+/* .reddit-card {
+   
+   } */
+
 .input {
     text-align:center;
 }
@@ -29,29 +33,31 @@
 }
 
 #footer * {
-    background-color:aquamarine;
+    //background-color: #6bb29a;
     color: black;
 }
 
 #footer {
     border-top: 1px solid black;
-    opacity: 0.8;
+    background-color: rgba(107, 178, 154, 0.6);
+    //opacity: 0.8;
 }
 
 #btn-refresh {
     background: url(../images/icon_refresh_sm.png);  
-    border-color: black;
+    border-color: white;
     width: 32px;
     height: 32px;
     margin-right: 10px;
 }
 
 #input-date {
-    border-color: black;
+    background-color: rgba(107, 178, 154, 0.6);
+    border-color: white;
 }
 
 ::-webkit-inner-spin-button { display: none; }
-::-webkit-calendar-picker-indicator { background: aquamarine; }
+::-webkit-calendar-picker-indicator { background: rgba(107, 178, 154, 0.6); }
 
 .checkbox-source {
     display:none;
@@ -79,7 +85,7 @@
 }
 
 #checkbox-reddit + label {
-    background: url(../images/icon_twitter_sm.png) no-repeat;
+    background: url(../images/icon_reddit_sm.png) no-repeat;
 }
 
 #checkbox-nytimes + label {

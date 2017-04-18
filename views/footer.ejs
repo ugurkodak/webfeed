@@ -36,19 +36,21 @@
 		<input id="checkbox-reddit" class="checkbox-source" type="checkbox" name="reddit" value="1" unchecked><label for="checkbox-reddit"></label>
 	    <% } %>
 
-	    <% if(filter.nytimes == true) { %>
-		<input type="hidden" name="nytimes" value="0" />
-		<input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" checked><label for="checkbox-nytimes"></label>
-	    <% } else { %>
-		<input type="hidden" name="nytimes" value="0" />
-		<input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" unchecked"><label for="checkbox-nytimes"></label>	
-	    <% } %>
+	    <%// if(filter.nytimes == true) { %>
+	    <!-- <input type="hidden" name="nytimes" value="0" />
+		 <input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" checked><label for="checkbox-nytimes"></label> -->
+	    <%// } else { %>
+	    <!-- <input type="hidden" name="nytimes" value="0" />
+		 <input id="checkbox-nytimes" class="checkbox-source" type="checkbox" name="nytimes" value="1" unchecked"><label for="checkbox-nytimes"></label> -->	
+	    <%// } %>
 
 	    <input type="date" id="input-date" class="form-control" name="date" value=<%= moment.parseZone(filter.date).format("YYYY-MM-DD"); %> required></input>
 	    <input id="btn-refresh" class="btn btn-default" type="submit" value=""/>
 	</form>
     </div>
 </nav>
+
+<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
