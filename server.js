@@ -36,7 +36,7 @@ passport.use(database.user.createStrategy());
 passport.serializeUser(database.user.serializeUser());
 passport.deserializeUser(database.user.deserializeUser());
 
-let dev = false;
+let dev = true;
 if (!dev) {
 
     /* Save up to 10 unique popular tweets from trending topics to the
